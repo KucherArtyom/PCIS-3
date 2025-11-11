@@ -1,0 +1,222 @@
+body{
+    color: white;
+    font-family: "Calibri";
+    background-color:#1F1C1C;
+}
+#mainblock{
+    margin-top: 50px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-size: 20px;
+    min-height: 600px;
+    background-color:#2C332C;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #47642A;
+    position: relative;
+}
+#sidebar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    background-color:#2C332C;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom: solid;
+    border-color: #47642A;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+#logo{
+    background-color:#2C332C;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 15px;
+}
+#logo_name{
+font-size: 28px;
+margin-top: 0px;
+margin: 0;
+}
+#sidebar_buttons{
+    width: 100px;
+    height: 50px;
+    margin-left: 10px;
+    background-color:#2C332C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sidebar_buttons_name{
+    font-size: 16px;
+    margin: 0;
+}
+#sidebar_right{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 10px;
+}
+#sidebar_buttons_right_name{
+font-size: 12px;
+margin: 0;
+}
+#login{
+width: 100px;
+height: 20px;
+background-color:#2C332C;
+margin-bottom: 2px;
+display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#registration{
+width: 100px;
+height: 20px;
+background-color:#2C332C;
+display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    margin-top: 200px;
+    text-align: center;
+}
+
+#login_field{
+    width: 300px;
+    height: 50px;
+    background-color:#1F1C1C;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #47642A;
+    color: white;
+    font-size: 16px;
+}
+
+#password_field{
+    width: 300px;
+    height: 50px;
+    background-color:#1F1C1C;
+    border-radius: 20px;
+    border-style: solid;
+    border-color: #47642A;
+    color: white;
+    font-size: 16px;
+}
+
+#button_enter{
+    width: 200px;
+    height: 50px;
+    background-color:#47642A;
+    border-radius: 20px;
+    border-style: solid;
+    font-size: 16px;
+    color: white;
+}
+
+#form_games{
+    margin-top: 60px;
+    text-align: justify;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right:10px;
+    margin-left:10px;
+}
+
+#games_home_team{
+    width: 200px;
+    height: 50px;
+    background-color:#1F1C1C;
+    border-style: solid;
+    border-color: #47642A;
+    color: white;
+}
+#games_away_team{
+    width: 200px;
+    height: 50px;
+    background-color:#1F1C1C;
+    border-style: solid;
+    border-color: #47642A;
+    color: white;
+}
+#games_home_team{
+    width: 200px; 
+    height: 50px;
+    background-color:#1F1C1C;
+    border-style: solid;
+    border-color: #47642A;
+    color: white;
+}
+#game_button_enter{
+    width: 100px;
+    height: 50px;
+    background-color:#47642A;
+    border-radius: 20px;
+    border-style: solid;
+    font-size: 16px;
+    color: white;
+}
+
+#club_games_area{
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+margin-top: 10px;
+margin: auto;
+width: 500px; 
+height: 200px;
+background-color:#47642A;
+}
+
+#game_score{
+font-size: 40px;
+}
+
+#block_game_minutes{
+margin-top: 10px;
+margin: auto;
+width: 1400px; 
+height: 100px;
+background-color:orange;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+td{
+width: 60px; 
+height:20px;
+border: solid #47642A; 
+text-align:left;
+background-color:#1F1C1C;
+}
+
+#clubs_inf{
+width: 400px;
+height: 300px;
+background-color:pink;
+margin-left: 10px;
+}
+
+#clubs_line_up{
+width: 400px;
+height: 300px;
+background-color:gray;
+margin-right: 10px;
+}
+
+#clubs_container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start;
+    margin: 20px 10px;
+}
