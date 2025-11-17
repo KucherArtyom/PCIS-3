@@ -10,80 +10,15 @@
             <p>Добро пожаловать, {{ adminStore.adminUser?.username }}!</p>
           </div>
           <div class="admin-stats">
-            <div class="stat-card">
-              <div class="stat-icon"></div>
-              <div class="stat-info">
-                <h3>{{ stats.matches || 0 }}</h3>
-                <p>Матчей</p>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon"></div>
-              <div class="stat-info">
-                <h3>{{ stats.clubs || 0 }}</h3>
-                <p>Клубов</p>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon"></div>
-              <div class="stat-info">
-                <h3>{{ stats.players || 0 }}</h3>
-                <p>Игроков</p>
-              </div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-icon"></div>
-              <div class="stat-info">
-                <h3>{{ stats.transfers || 0 }}</h3>
-                <p>Трансферов</p>
-              </div>
-            </div>
+            
           </div>
         </div>
 
         <div class="quick-actions">
-          <h2>Быстрые действия</h2>
-          <div class="actions-grid">
-            <div class="action-card" @click="$router.push('/admin/games')">
-              <div class="action-icon"></div>
-              <h3>Управление матчами</h3>
-              <p>Добавление, редактирование и удаление матчей</p>
-            </div>
-            <div class="action-card" @click="$router.push('/admin/players')">
-              <div class="action-icon"></div>
-              <h3>Управление игроками</h3>
-              <p>Управление информацией об игроках</p>
-            </div>
-            <div class="action-card" @click="$router.push('/admin/clubs')">
-              <div class="action-icon"></div>
-              <h3>Управление клубами</h3>
-              <p>Редактирование клубов и их информации</p>
-            </div>
-            <div class="action-card" @click="$router.push('/admin/transfers')">
-              <div class="action-icon"></div>
-              <h3>Управление трансферами</h3>
-              <p>Добавление и редактирование трансферов</p>
-            </div>
-          </div>
+          
         </div>
 
-        <div class="recent-activities">
-          <h2>Последние активности</h2>
-          <div class="activities-list">
-            <div class="activity-item" v-for="activity in recentActivities" :key="activity.id">
-              <div class="activity-icon" :class="activity.type">
-                {{ getActivityIcon(activity.type) }}
-              </div>
-              <div class="activity-content">
-                <p class="activity-text">{{ activity.text }}</p>
-                <span class="activity-time">{{ activity.time }}</span>
-              </div>
-            </div>
-            <div v-if="recentActivities.length === 0" class="no-activities">
-              <p>Активности пока нет</p>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </div>
@@ -109,37 +44,6 @@ export default {
     const stats = ref({})
     const recentActivities = ref([])
 
-    const loadStats = async () => {
-      stats.value = {
-        matches: 150,
-        clubs: 20,
-        players: 500,
-        transfers: 300
-      }
-    }
-
-    const loadRecentActivities = async () => {
-      recentActivities.value = [
-        {
-          id: 1,
-          type: 'match',
-          text: 'Добавлен новый матч: Barcelona vs Real Madrid',
-          time: '2 часа назад'
-        },
-        {
-          id: 2,
-          type: 'player',
-          text: 'Обновлена информация об игроке Lionel Messi',
-          time: '5 часов назад'
-        },
-        {
-          id: 3,
-          type: 'transfer',
-          text: 'Зарегистрирован трансфер: Player A → Chelsea',
-          time: '1 день назад'
-        }
-      ]
-    }
 
     const getActivityIcon = (type) => {
       const icons = {

@@ -5,11 +5,9 @@
     <div id="content">
       <div class="page-header">
         <h1>Матчи</h1>
-        <p>Просмотр статистики футбольных матчей</p>
-        <p class="hint">💡 Selectbox'ы автоматически фильтруются для показа только совместимых значений</p>
+        <p class ="information">Просмотр статистики футбольных матчей</p>
       </div>
 
-      <!-- Фильтры -->
       <div class="filters-container">
         <div class="filter-row">
           <div class="filter-group">
@@ -326,7 +324,7 @@ export default {
     }, 300),
 
     async searchMatch() {
-      console.log('🔍 START searchMatch:', {
+      console.log('START searchMatch:', {
       home: this.selectedHomeTeam,
       away: this.selectedAwayTeam,
       date: this.selectedDate
@@ -344,7 +342,7 @@ export default {
       this.homeLogoError = false
       this.awayLogoError = false
 
-      console.log('📡 Making API request...')
+      console.log('Making API request...')
 
       try {
         const params = new URLSearchParams()
@@ -353,7 +351,7 @@ export default {
         if (this.selectedDate) params.append('date', this.selectedDate)
 
         const url = `http://127.0.0.1:8000/api/games/search/?${params.toString()}`
-        console.log('🌐 Request URL:', url)
+        console.log('Request URL:', url)
         const response = await axios.get(url)
         console.log('Response received:', response.data)
 
@@ -367,7 +365,7 @@ export default {
           this.error = 'Ошибка при поиске матча'
         }
       } finally {
-        console.log('🏁 FINISH searchMatch, loading:', false)
+        console.log('FINISH searchMatch, loading:', false)
         this.loading = false
       }
     },
@@ -450,6 +448,23 @@ export default {
 #content {
   margin-top: 50px;
 }
+
+.search-btn{
+  margin-left: 10px;
+  background-color:#47642A;
+  color:white;
+  border-style: solid;
+  border-color: #47642A;
+  border-radius: 4px;
+  height: 40px;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.information{
+  margin-left: 10px;
+}
+
 .filter-group {
   margin-left: 10px;
 }
@@ -491,13 +506,15 @@ h1{
 }
 
 .clear-btn {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 8px 15px;
+  margin-left: 10px;
+  background-color:#1F1C1C;
+  color:white;
+  border-style: solid;
+  border-color: #1F1C1C;
   border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
+  height: 40px;
+  width: 100px;
+  margin-top: 10px;
 }
 
 .clear-btn:hover:not(:disabled) {
@@ -512,7 +529,7 @@ h1{
 }
 
 .status-item {
-  background: #e9ecef;
+  background: #47642A;
   padding: 5px 10px;
   border-radius: 15px;
   font-size: 0.9em;
@@ -533,7 +550,7 @@ h1{
 }
 
 .options-info {
-  background: #e7f3ff;
+  background: #47642A;
   padding: 10px 15px;
   border-radius: 4px;
   margin-top: 10px;
@@ -543,7 +560,6 @@ h1{
   color: #856404;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .search-actions {
     flex-direction: row;
@@ -556,7 +572,7 @@ h1{
 .match-container {
   background: #2C332C;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 18px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-top: 20px;
 }
@@ -661,7 +677,9 @@ h1{
 .events-table td {
   padding: 8px 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 3px solid #47642A;
+  border-style: solid;
+  border-color: #47642A;
 }
 
 .events-table th {

@@ -1,6 +1,4 @@
 <template>
-  <div id="mainblock">
-    <Sidebar />
     
     <div id="content">
       <div class="auth-container">
@@ -57,7 +55,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -66,6 +63,11 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { useAdminStore } from '@/stores/admin'
 import Sidebar from '@/components/Sidebar.vue'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export default {
   name: 'Login',
@@ -102,37 +104,45 @@ export default {
       return Object.keys(errors.value).length === 0
     }
 
-    const handleLogin = async () => {
-      if (!validateForm()) return
-      
-      loading.value = true
-      message.value = ''
-      checkingAdmin.value = false
+  const handleLogin = async () => {
+  if (!validateForm()) return
+  
+  loading.value = true
+  message.value = ''
+  checkingAdmin.value = false
 
-try {
-        const loginResult = await authStore.login(
-          loginForm.value.username,
-          loginForm.value.password
-        )
-        
-        if (loginResult.success) {
-          message.value = 'Вход выполнен успешно!'
-          messageType.value = 'success'
-          
-          checkingAdmin.value = true
-          const isAdmin = await adminStore.checkAdminAccess()
-          
-          if (isAdmin) {
-            message.value = 'Вход выполнен успешно! Перенаправление в админ-панель...'
-            setTimeout(() => {
-              router.push('/admin')
-            }, 1000)
-          } else {
-            message.value = 'Вход выполнен успешно! Перенаправление на главную страницу...'
-            setTimeout(() => {
-              router.push('/')
-            }, 1000)
+  try {
+
+    await axios.get("http://127.0.0.1:8000/api/auth/csrf/", {
+      withCredentials: true
+    })
+
+    const loginResult = await authStore.login(
+      loginForm.value.username,
+      loginForm.value.password
+    )
+    
+    if (loginResult.success) {
+      message.value = 'Вход выполнен успешно!'
+      messageType.value = 'success'
+      
+      const userData = authStore.user
+      console.log('User data after login:', userData)
+      
+      await new Promise(resolve => setTimeout(resolve, 100))
+      
+      if (userData && userData.is_staff) {
+        message.value = 'Вход выполнен успешно! Перенаправление в админ-панель...'
+        setTimeout(() => {
+          router.push('/admin')
+        }, 1000)
+      } else {
+        message.value = 'Вход выполнен успешно! Перенаправление на главную страницу...'
+        setTimeout(() => {
+          router.push('/')
+        }, 1000)  
           }
+        
         } else {
           if (loginResult.error && typeof loginResult.error === 'object') {
             if (loginResult.error.non_field_errors) {
@@ -179,12 +189,14 @@ try {
 }
 
 .auth-card {
-  background: white;
+  background: #2C332C;
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  border-style: solid;
+  border-color: #47642A;
 }
 
 .auth-header {
@@ -193,7 +205,7 @@ try {
 }
 
 .auth-header h1 {
-  color: #2c3e50;
+  color: white;
   margin-bottom: 10px;
   font-size: 2em;
 }
@@ -217,7 +229,7 @@ try {
 
 .form-group label {
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 5px;
 }
 
@@ -270,7 +282,7 @@ try {
   text-align: center;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #e9ecef;
+  border-top: 3px solid #47642A;
 }
 
 .auth-links a {

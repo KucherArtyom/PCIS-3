@@ -27,10 +27,8 @@ export const useAuthStore = defineStore('auth', () => {
       )
       user.value = response.data.user
       
-      const adminStore = useAdminStore()
-      const isAdmin = await adminStore.checkAdminAccess()
-
-      return { success: true, data: response.data, isAdmin: isAdmin }
+      // Уберите вызов checkAdminAccess отсюда
+      return { success: true, data: response.data }
     } catch (error) {
       return { 
         success: false, 
@@ -38,8 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
     }
   }
-
-  const register = async (userData) => {
+const register = async (userData) => {
     try {
       const response = await axios.post(
         'http://127.0.0.1:8000/api/auth/register/',

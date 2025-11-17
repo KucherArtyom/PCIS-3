@@ -5,7 +5,6 @@
       <p id="admin-logo_subtitle">ADMIN</p>
     </div>
     
-    <!-- Навигация администратора -->
     <div class="admin-sidebar_buttons" @click="router.push('/admin')">
       <p class="admin-sidebar_buttons_name">Главная админа</p>
     </div>
@@ -77,19 +76,20 @@ export default {
 <style scoped>
 #admin-sidebar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
   background: #1a1a1a;
   color: white;
   padding: 20px;
-  min-height: 100vh;
-  width: 280px;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
 }
 
 #admin-logo {
   margin-bottom: 30px;
   text-align: center;
   padding-bottom: 20px;
-  border-bottom: 2px solid #333;
 }
 
 #admin-logo_name {
@@ -129,8 +129,7 @@ export default {
 
 #admin-sidebar_right {
   margin-top: auto;
-  padding-top: 20px;
-  border-top: 2px solid #333;
+  padding-top: 5px;
 }
 
 .admin-user-info {

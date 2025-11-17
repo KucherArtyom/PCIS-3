@@ -169,6 +169,7 @@ export default {
   padding: 20px;
   background-color: #2C332C;
   margin-top: 50px;
+  border-radius: 18px;
 }
 
 h1{
@@ -192,7 +193,7 @@ h1{
 }
 
 .filters-container {
-  background: white;
+  background: #47642A;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -215,7 +216,7 @@ h1{
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: white;
 }
 
 .form-select {
@@ -249,7 +250,7 @@ h1{
 }
 
 .results-container {
-  background: white;
+  background: #2C332C;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -257,7 +258,7 @@ h1{
 
 .results-container h2 {
   margin-bottom: 15px;
-  color: #333;
+  color: #47642A;
 }
 
 .table-responsive {
@@ -273,13 +274,15 @@ h1{
 .transfers-table td {
   padding: 12px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 3px solid #47642A;
 }
 
 .transfers-table th {
-  background-color: #f8f9fa;
+  background-color: #1F1C1C;
   font-weight: bold;
-  color: #333;
+  color: white;
+  border-style: solid;
+  border-color: #47642A;
 }
 
 .transfers-table tr:hover {
@@ -289,10 +292,10 @@ h1{
 .no-results, .loading {
   text-align: center;
   padding: 40px;
-  background: white;
+  background: #47642A;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  color: #666;
+  color: white;
 }
 
 @media (max-width: 768px) {

@@ -1,6 +1,4 @@
 <template>
-  <div id="mainblock">
-    <Sidebar />
     
     <div id="content">
       <div class="auth-container">
@@ -96,7 +94,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -214,12 +211,14 @@ export default {
 }
 
 .auth-card {
-  background: white;
+  background: #2C332C;
   padding: 40px;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  border-style: solid;
+    border-color: #47642A;
 }
 
 .auth-header {
@@ -228,7 +227,7 @@ export default {
 }
 
 .auth-header h1 {
-  color: #2c3e50;
+  color: white;
   margin-bottom: 10px;
   font-size: 2em;
 }
@@ -252,7 +251,7 @@ export default {
 
 .form-group label {
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
   margin-bottom: 5px;
 }
 
@@ -305,7 +304,7 @@ export default {
   text-align: center;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid #e9ecef;
+  border-top: 3px solid #47642A;
 }
 
 .auth-links a {

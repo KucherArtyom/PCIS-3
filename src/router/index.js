@@ -57,30 +57,6 @@ const routes = [
   },
   {
   path: '/admin/players',
-  name: 'PlayersAdmin', 
-  component: () => import('@/views/PlayersAdmin.vue'),
-  meta: { requiresAdmin: true }
-  },
-  {
-  path: '/admin/clubs',
-  name: 'ClubsAdmin',
-  component: () => import('@/views/ClubsAdmin.vue'),
-  meta: { requiresAdmin: true }
-  },
-  {
-  path: '/admin/transfers',
-  name: 'TransfersAdmin',
-  component: () => import('@/views/TransfersAdmin.vue'),
-  meta: { requiresAdmin: true }
-  },
-  {
-  path: '/admin/games',
-  name: 'GamesAdmin',
-  component: () => import('@/views/GamesAdmin.vue'),
-  meta: { requiresAdmin: true }
-  },
-  {
-  path: '/admin/players',
   name: 'PlayersAdmin',
   component: () => import('@/views/PlayersAdmin.vue'),
   meta: { requiresAdmin: true }

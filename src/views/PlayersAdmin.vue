@@ -264,6 +264,10 @@ import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { useAdminStore } from '@/stores/admin'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import axios from 'axios'
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 
 export default {
   name: 'PlayersAdmin',
@@ -561,19 +565,28 @@ export default {
   margin-bottom: 30px;
 }
 
+.form-select{
+  height: 40px;
+  background-color:#1F1C1C;
+  color:white;
+  border-style: solid;
+  border-color: #47642A;
+  border-radius: 4px;
+}
+
 .admin-header h1 {
-  color: #2c3e50;
+  color: white;
   font-size: 2.2em;
   margin-bottom: 10px;
 }
 
 .admin-header p {
-  color: #666;
+  color: white;
   font-size: 1.1em;
 }
 
 .mode-selector {
-  background: white;
+  background: #47642A;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -593,7 +606,7 @@ export default {
   gap: 10px;
   cursor: pointer;
   font-weight: 500;
-  color: #2c3e50;
+  color: white;
   transition: color 0.3s ease;
 }
 
@@ -632,7 +645,7 @@ export default {
 }
 
 .search-section {
-  background: white;
+  background: #2C332C;
   padding: 25px;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -654,12 +667,12 @@ export default {
 
 .filter-group label {
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
   font-size: 0.9em;
 }
 
 .search-btn {
-  background: #3498db;
+  background: #47642A;
   color: white;
   border: none;
   padding: 12px 20px;
@@ -680,7 +693,7 @@ export default {
 }
 
 .player-form-section {
-  background: white;
+  background: #2C332C;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -701,16 +714,17 @@ export default {
 
 .form-group label {
   font-weight: 600;
-  color: #2c3e50;
+  color: white;
   font-size: 0.9em;
 }
 
 .form-input {
   padding: 12px 15px;
-  border: 2px solid #e9ecef;
+  border: 2px solid #47642A;
   border-radius: 8px;
   font-size: 1em;
   transition: border-color 0.3s ease;
+  background: #1F1C1C;
 }
 
 .form-input:focus {
@@ -723,7 +737,7 @@ export default {
 }
 
 .form-input.readonly {
-  background: #f8f9fa;
+  background: #1F1C1C;
   color: #6c757d;
   cursor: not-allowed;
 }
@@ -735,7 +749,7 @@ export default {
 }
 
 .name-preview {
-  background: #e8f4fd;
+  background: #47642A;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 25px;
@@ -746,7 +760,7 @@ export default {
 .form-actions {
   text-align: center;
   padding-top: 20px;
-  border-top: 1px solid #e9ecef;
+  border-top: 3px solid #47642A;
 }
 
 .action-btn {

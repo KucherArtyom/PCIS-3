@@ -5,7 +5,7 @@
     <div id="content">
       <div class="page-header">
         <h1>Клубы</h1>
-        <p>Просмотр информации о футбольных клубах</p>
+        <p class ="information">Просмотр информации о футбольных клубах</p>
       </div>
 
       <div class="filters-container">
@@ -47,7 +47,7 @@
         <div class="club-details">
           <div class="details-grid">
             <div class="detail-card">
-              <div class="detail-icon">🏟️</div>
+              <div class="detail-icon"></div>
               <div class="detail-content">
                 <h4>Стадион</h4>
                 <p class="detail-value">{{ clubData.club.stadium_name || 'Не указан' }}</p>
@@ -58,7 +58,7 @@
             </div>
 
             <div class="detail-card">
-              <div class="detail-icon">📊</div>
+              <div class="detail-icon"></div>
               <div class="detail-content">
                 <h4>Состав</h4>
                 <p class="detail-value">{{ clubData.club.squad_size || '0' }} игроков</p>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="detail-card">
-              <div class="detail-icon">💰</div>
+              <div class="detail-icon"></div>
               <div class="detail-content">
                 <h4>Стоимость</h4>
                 <p class="detail-value">{{ formatCurrency(clubData.club.total_market_value) }}</p>
@@ -239,6 +239,18 @@ export default {
 #content {
   margin-top: 50px;
 }
+
+.search-btn{
+  margin-left: 10px;
+  background-color:#47642A;
+  color:white;
+  border-style: solid;
+  border-color: #47642A;
+  border-radius: 4px;
+  height: 40px;
+  width: 100px;
+  margin-top: 10px;
+}
 .filter-group {
   margin-left: 10px;
 }
@@ -247,6 +259,9 @@ h1{
   margin-left: 50px;
 }
 
+.information{
+  margin-left: 10px;
+}
 
 .form-select {
   background-color:#1F1C1C;
@@ -260,7 +275,7 @@ h1{
 .club-container {
   background: #2C332C;
   padding: 30px;
-  border-radius: 12px;
+  border-radius: 18px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
@@ -271,7 +286,7 @@ h1{
   gap: 20px;
   margin-bottom: 30px;
   padding-bottom: 20px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid #47642A;
 }
 
 .club-logo-placeholder {
@@ -294,12 +309,12 @@ h1{
 
 .club-info-main h2 {
   margin: 0 0 8px 0;
-  color: #2c3e50;
+  color: white;
   font-size: 2em;
 }
 
 .coach-info {
-  color: #666;
+  color: white;
   font-size: 1.1em;
 }
 
@@ -315,7 +330,7 @@ h1{
 }
 
 .detail-card {
-  background: #f8f9fa;
+  background: #47642A; 
   padding: 20px;
   border-radius: 8px;
   border-left: 4px solid #007bff;
@@ -337,19 +352,19 @@ h1{
 
 .detail-content h4 {
   margin: 0 0 8px 0;
-  color: #2c3e50;
+  color: white;
   font-size: 1.1em;
 }
 
 .detail-value {
   font-size: 1.3em;
   font-weight: bold;
-  color: #007bff;
+  color: white;
   margin: 0 0 4px 0;
 }
 
 .detail-subvalue {
-  color: #666;
+  color: white;
   font-size: 0.9em;
   margin: 0;
 }
@@ -359,17 +374,17 @@ h1{
 }
 
 .players-section h3 {
-  color: #2c3e50;
+  color: white;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #e9ecef;
+  border-bottom: 2px solid #47642A;
 }
 
 .players-table-container {
   overflow-x: auto;
   margin-bottom: 20px;
   border-radius: 8px;
-  border: 1px solid #e9ecef;
+  border: 1px solid #47642A;
 }
 
 .players-table {
@@ -383,13 +398,15 @@ h1{
   padding: 15px 12px;
   text-align: left;
   font-weight: 600;
-  color: #2c3e50;
-  border-bottom: 2px solid #e9ecef;
+  color: #47642A;
+  border-bottom: 2px solid #47642A;
+  border-left: 3px solid #47642A;
+  border-right: 3px solid #47642A;
 }
 
 .players-table td {
   padding: 12px;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #47642A;
 }
 
 .players-table tr:hover {
@@ -398,18 +415,18 @@ h1{
 
 .player-id {
   font-family: 'Courier New', monospace;
-  color: #666;
+  color: #47642A;
   font-size: 0.9em;
   width: 80px;
 }
 
 .player-name {
   font-weight: 500;
-  color: #2c3e50;
+  color: #47642A;
 }
 
 .sub-position {
-  color: #007bff;
+  color: #47642A;
   font-weight: 500;
 }
 

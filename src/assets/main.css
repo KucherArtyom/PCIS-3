@@ -21,8 +21,8 @@ body{
     align-items: center;
     height: 50px;
     background-color:#2C332C;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
     border-bottom: solid;
     border-color: #47642A;
     position: absolute;
@@ -53,6 +53,11 @@ margin: 0;
     align-items: center;
     justify-content: center;
 }
+
+#sidebar_buttons:hover:not(:disabled) {
+  background: #47642A;
+}
+
 #sidebar_buttons_name{
     font-size: 16px;
     margin: 0;
@@ -76,6 +81,10 @@ display: flex;
     align-items: center;
     justify-content: center;
 }
+#login:hover:not(:disabled) {
+  background: #47642A;
+}
+
 #registration{
 width: 100px;
 height: 20px;
@@ -83,6 +92,10 @@ background-color:#2C332C;
 display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#registration:hover:not(:disabled) {
+  background: #47642A;
 }
 
 form {

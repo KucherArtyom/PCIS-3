@@ -5,7 +5,7 @@
     <div id="content">
       <div class="page-header">
         <h1>Игроки</h1>
-        <p>Просмотр информации о футбольных игроках</p>
+        <p class ="information">Просмотр информации о футбольных игроках</p>
       </div>
 
       <div class="filters-container">
@@ -153,11 +153,6 @@
       <div v-if="loading && !playerData" class="loading">
         <p>Загрузка информации об игроке...</p>
       </div>
-
-      <div v-if="!selectedClubId && !loading" class="info-message">
-        <p>👈 Выберите команду для просмотра списка игроков</p>
-      </div>
-
       <div v-if="selectedClubId && players.length === 0 && !loading" class="info-message">
         <p>В выбранной команде нет игроков в базе данных</p>
       </div>
@@ -342,6 +337,22 @@ export default {
   margin-top: 50px;
 }
 
+.search-btn{
+  margin-left: 10px;
+  background-color:#47642A;
+  color:white;
+  border-style: solid;
+  border-color: #47642A;
+  border-radius: 4px;
+  height: 40px;
+  width: 100px;
+  margin-top: 10px;
+}
+
+.information{
+  margin-left: 10px;
+}
+
 h1{
   margin-left: 50px;
 }
@@ -361,7 +372,7 @@ h1{
 .player-container {
   background: #2C332C;
   padding: 30px;
-  border-radius: 12px;
+  border-radius: 18px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 }
@@ -395,7 +406,7 @@ h1{
 
 .player-info-main h2 {
   margin: 0 0 10px 0;
-  color: #2c3e50;
+  color: white;
   font-size: 2.2em;
   font-weight: 600;
 }
@@ -415,7 +426,7 @@ h1{
 }
 
 .value-label {
-  color: #666;
+  color: #47642A;
   font-size: 0.9em;
   margin-bottom: 5px;
 }
@@ -433,7 +444,7 @@ h1{
 }
 
 .details-section h3 {
-  color: #2c3e50;
+  color: #47642A;
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #47642A;
@@ -454,14 +465,14 @@ h1{
 
 .detail-item label {
   font-weight: 600;
-  color: #666;
+  color: #47642A;
   font-size: 0.9em;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .detail-item span {
-  color: #2c3e50;
+  color: white;
   font-size: 1.1em;
 }
 
