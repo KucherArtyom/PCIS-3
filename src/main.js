@@ -13,7 +13,13 @@ const app = createApp(App)
 app.use(pinia)
 app.use(router)
 
+app.mount('#app')
+
+
 router.isReady().then(async () => {
+  const { useAuthStore } = await import('@/stores/auth')
+  const { useAdminStore } = await import('@/stores/admin')
+  
   const authStore = useAuthStore()
   const adminStore = useAdminStore()
   
@@ -28,5 +34,3 @@ router.isReady().then(async () => {
   }
 })
 
-
-app.mount('#app')

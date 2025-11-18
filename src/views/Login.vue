@@ -65,9 +65,9 @@ import { useAdminStore } from '@/stores/admin'
 import Sidebar from '@/components/Sidebar.vue'
 import axios from 'axios'
 
-axios.defaults.withCredentials = true
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+// axios.defaults.withCredentials = true
+// axios.defaults.xsrfCookieName = 'csrftoken'
+// axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export default {
   name: 'Login',
@@ -113,9 +113,9 @@ export default {
 
   try {
 
-    await axios.get("http://127.0.0.1:8000/api/auth/csrf/", {
-      withCredentials: true
-    })
+    // await axios.get("http://127.0.0.1:8000/api/auth/csrf/", {
+    //   withCredentials: true
+    // })
 
     const loginResult = await authStore.login(
       loginForm.value.username,

@@ -5,14 +5,13 @@
 </template>
 
 <script>
-import { useAuthStore } from '@/stores/auth'
-
 export default {
   name: 'App',
-  setup() {
+  async mounted() {
+    const { useAuthStore } = await import('@/stores/auth')
     const authStore = useAuthStore()
     
-    authStore.loadUser()
+    await authStore.loadUser()
   }
 }
 </script>
