@@ -226,8 +226,8 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue'
-import axios from 'axios'
 import { debounce } from 'lodash'
+import axios from '@/utils/axios'
 
 export default {
   name: 'Games',
@@ -274,7 +274,7 @@ export default {
   methods: {
     async loadAllOptions() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/games/search_options/')
+        const response = await axios.get('games/search_options/')
         this.allTeams = response.data.teams
         this.allDates = response.data.dates
         
@@ -298,7 +298,7 @@ export default {
         if (this.selectedAwayTeam) params.append('away_team', this.selectedAwayTeam)
         if (this.selectedDate) params.append('date', this.selectedDate)
 
-        const url = `http://127.0.0.1:8000/api/games/filtered_options/?${params.toString()}`
+        const url = `games/filtered_options/?${params.toString()}`
         const response = await axios.get(url)
         
         const data = response.data
@@ -350,7 +350,7 @@ export default {
         if (this.selectedAwayTeam) params.append('away_team', this.selectedAwayTeam)
         if (this.selectedDate) params.append('date', this.selectedDate)
 
-        const url = `http://127.0.0.1:8000/api/games/search/?${params.toString()}`
+        const url = `games/search/?${params.toString()}`
         console.log('Request URL:', url)
         const response = await axios.get(url)
         console.log('Response received:', response.data)

@@ -123,6 +123,20 @@ const logout = async () => {
       await loadUser()
     }
   }
+  const checkAuth = async () => {
+    if (!accessToken.value) {
+      return false
+    }
+    
+    try {
+      await axios.get('auth/user/')
+      return true
+    } catch (error) {
+      clearTokens()
+      user.value = null
+      return false
+    }
+  }
 
 
   return {
@@ -133,6 +147,7 @@ const logout = async () => {
     login,
     register,
     logout,
-    initialize
+    initialize,
+    checkAuth
   }
 })

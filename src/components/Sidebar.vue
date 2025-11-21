@@ -3,21 +3,81 @@
     <div id="logo">
       <p id="logo_name">FOOT_SCOUT</p>
     </div>
+    
+    <!-- Главная - доступна всем -->
     <div id="sidebar_buttons" @click="$router.push('/')">
       <p id="sidebar_buttons_name">Главная</p>
     </div>
-    <div id="sidebar_buttons" @click="$router.push('/games')">
+    
+    <!-- Защищенные маршруты -->
+    <div 
+      v-if="authStore.isAuthenticated" 
+      id="sidebar_buttons" 
+      @click="$router.push('/games')"
+      class="enabled"
+    >
       <p id="sidebar_buttons_name">Матчи</p>
     </div>
-    <div id="sidebar_buttons" @click="$router.push('/clubs')">
+    <div 
+      v-else 
+      id="sidebar_buttons" 
+      @click="showAuthRequired"
+      class="disabled"
+    >
+      <p id="sidebar_buttons_name disabled-text">Матчи</p>
+    </div>
+    
+    <div 
+      v-if="authStore.isAuthenticated" 
+      id="sidebar_buttons" 
+      @click="$router.push('/clubs')"
+      class="enabled"
+    >
       <p id="sidebar_buttons_name">Клубы</p>
     </div>
-    <div id="sidebar_buttons" @click="$router.push('/players')">
+    <div 
+      v-else 
+      id="sidebar_buttons" 
+      @click="showAuthRequired"
+      class="disabled"
+    >
+      <p id="sidebar_buttons_name disabled-text">Клубы</p>
+    </div>
+    
+    <div 
+      v-if="authStore.isAuthenticated" 
+      id="sidebar_buttons" 
+      @click="$router.push('/players')"
+      class="enabled"
+    >
       <p id="sidebar_buttons_name">Игроки</p>
     </div>
-    <div id="sidebar_buttons" @click="$router.push('/transfers')">
+    <div 
+      v-else 
+      id="sidebar_buttons" 
+      @click="showAuthRequired"
+      class="disabled"
+    >
+      <p id="sidebar_buttons_name disabled-text">Игроки</p>
+    </div>
+    
+    <div 
+      v-if="authStore.isAuthenticated" 
+      id="sidebar_buttons" 
+      @click="$router.push('/transfers')"
+      class="enabled"
+    >
       <p id="sidebar_buttons_name">Трансферы</p>
     </div>
+    <div 
+      v-else 
+      id="sidebar_buttons" 
+      @click="showAuthRequired"
+      class="disabled"
+    >
+      <p id="sidebar_buttons_name disabled-text">Трансферы</p>
+    </div>
+
     <div id="sidebar_right">
       <div v-if="!authStore.isAuthenticated" class="auth-buttons">
         <div id="login" @click="$router.push('/login')">
@@ -43,6 +103,7 @@
 <script>
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+
 export default {
   name: 'Sidebar',
   setup() {
@@ -51,12 +112,18 @@ export default {
     
     const handleLogout = async () => {
       await authStore.logout()
-      $router.push('/')
+      router.push('/')
+    }
+
+    const showAuthRequired = () => {
+      alert('Для доступа к этому разделу требуется авторизация')
+      router.push('/login')
     }
 
     return {
       authStore,
-      handleLogout
+      handleLogout,
+      showAuthRequired
     }
   }
 }

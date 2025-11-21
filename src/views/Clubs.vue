@@ -132,7 +132,7 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue'
-import axios from 'axios'
+import axios from '@/utils/axios'
 
 export default {
   name: 'Clubs',
@@ -155,7 +155,7 @@ export default {
   methods: {
     async loadClubs() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/clubs/')
+        const response = await axios.get('clubs/')
         this.clubs = response.data
       } catch (error) {
         console.error('Ошибка при загрузке клубов:', error)
@@ -174,7 +174,7 @@ export default {
       this.clubData = null
 
       try {
-        const url = `http://127.0.0.1:8000/api/clubs/search/?club_id=${this.selectedClubId}`
+        const url = `clubs/search/?club_id=${this.selectedClubId}`
         const response = await axios.get(url)
         
         this.clubData = response.data

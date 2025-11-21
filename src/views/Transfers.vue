@@ -76,7 +76,7 @@
 </template>
 <script>
 import Sidebar from '@/components/Sidebar.vue'
-import axios from 'axios'
+import axios from '@/utils/axios'
 
 export default {
   name: 'Transfers',
@@ -99,7 +99,7 @@ export default {
   methods: {
     async loadClubs() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/clubs/')
+        const response = await axios.get('clubs/')
         this.clubs = response.data
       } catch (error) {
         console.error('Ошибка при загрузке клубов:', error)
@@ -125,7 +125,7 @@ export default {
           params.append('to_club', this.selectedToClub)
         }
 
-        const url = `http://127.0.0.1:8000/api/transfers/search/?${params.toString()}`
+        const url = `transfers/search/?${params.toString()}`
         const response = await axios.get(url)
         
         this.transfers = response.data
