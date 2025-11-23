@@ -4,12 +4,10 @@
       <p id="logo_name">FOOT_SCOUT</p>
     </div>
     
-    <!-- Главная - доступна всем -->
     <div id="sidebar_buttons" @click="$router.push('/')">
       <p id="sidebar_buttons_name">Главная</p>
     </div>
     
-    <!-- Защищенные маршруты -->
     <div 
       v-if="authStore.isAuthenticated" 
       id="sidebar_buttons" 

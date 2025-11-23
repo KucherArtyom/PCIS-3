@@ -23,17 +23,14 @@
     
     <div id="admin-sidebar_right">
       <div class="admin-user-info">
+        <!--
         <div class="admin-user-welcome">
           <p class="admin-user-name">Админ: {{ adminStore.adminUser?.username }}</p>
         </div>
-        <div class="admin-actions">
-          <div class="admin-to-main" @click="goToMainSite">
-            <p class="admin-sidebar_buttons_right_name">Основной сайт</p>
-          </div>
+        -->
           <div class="admin-logout" @click="handleLogout">
             <p class="admin-sidebar_buttons_right_name">Выйти</p>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -84,6 +81,8 @@ export default {
   padding: 20px;
   border-top-left-radius: 18px;
   border-top-right-radius: 18px;
+  border-bottom: solid;
+  border-color: #47642A;
 }
 
 #admin-logo {
@@ -95,13 +94,13 @@ export default {
 #admin-logo_name {
   font-size: 1.5em;
   font-weight: bold;
-  color: #3498db;
+  color: #47642A;
   margin: 0;
 }
 
 #admin-logo_subtitle {
   font-size: 0.8em;
-  color: #95a5a6;
+  color: #47642A;
   margin: 5px 0 0 0;
   font-weight: 500;
   letter-spacing: 2px;
@@ -118,7 +117,6 @@ export default {
 
 .admin-sidebar_buttons:hover {
   background: #2c3e50;
-  border-left-color: #3498db;
 }
 
 .admin-sidebar_buttons_name {
@@ -136,13 +134,6 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
-}
-
-.admin-user-welcome {
-  padding: 12px;
-  background: #2c3e50;
-  border-radius: 6px;
-  text-align: center;
 }
 
 .admin-user-name {
@@ -175,11 +166,11 @@ export default {
 }
 
 .admin-logout {
-  background: #e74c3c;
+  background: #47642A;
 }
 
 .admin-logout:hover {
-  background: #c0392b;
+  background: #47642A;
 }
 
 .admin-sidebar_buttons_right_name {

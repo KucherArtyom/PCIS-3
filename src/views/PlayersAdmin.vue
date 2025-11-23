@@ -48,19 +48,19 @@
           <div class="search-filters">
             <div class="filter-group">
               <label>Команда:</label>
-              <select v-model="searchFilters.club_name" @change="loadPlayersByClub" class="form-select">
+              <select v-model="searchFilters.club_id" @change="loadPlayersByClub" class="form-select">
                 <option value="">Выберите команду</option>
-                <option v-for="club in options.clubs" :key="club" :value="club">
-                  {{ club }}
+                <option v-for="club in options.clubs" :key="club.club_id" :value="club.club_id">
+                  {{ club.name }}
                 </option>
               </select>
             </div>
             <div class="filter-group">
               <label>Игрок:</label>
-              <select v-model="searchFilters.player_name" class="form-select" :disabled="!searchFilters.club_name">
+              <select v-model="searchFilters.player_id" class="form-select" :disabled="!searchFilters.club_id">
                 <option value="">Выберите игрока</option>
-                <option v-for="player in clubPlayers" :key="player.player_id" :value="player.name">
-                  {{ player.name }}
+                <option v-for="player in clubPlayers" :key="player.player_id" :value="player.player_id">
+                  {{ player.name }} ({{ player.current_club_name }})
                 </option>
               </select>
             </div>
@@ -107,16 +107,19 @@
 
               <div class="form-group">
                 <label>Текущий клуб:</label>
-                <input
-                  v-model="playerForm.current_club_name"
-                  type="text"
+                <select
+                  v-model="playerForm.current_club_id"
                   class="form-input"
-                  :class="{ 'error': errors.current_club_name, 'readonly': selectedMode === 'delete' }"
-                  :readonly="selectedMode === 'delete'"
-                  placeholder="Название клуба"
+                  :class="{ 'error': errors.current_club_id, 'readonly': selectedMode === 'delete' }"
+                  :disabled="selectedMode === 'delete'"
                   required
                 >
-                <span v-if="errors.current_club_name" class="error-text">{{ errors.current_club_name }}</span>
+                  <option value="">Выберите клуб</option>
+                  <option v-for="club in options.clubs" :key="club.club_id" :value="club.club_id">
+                    {{ club.name }}
+                  </option>
+                </select>
+                <span v-if="errors.current_club_id" class="error-text">{{ errors.current_club_id }}</span>
               </div>
 
               <div class="form-group">
@@ -268,7 +271,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
-
 export default {
   name: 'PlayersAdmin',
   components: {
@@ -290,14 +292,14 @@ export default {
     })
     
     const searchFilters = reactive({
-      club_name: '',
-      player_name: ''
+      club_id: '',
+      player_id: ''
     })
     
     const playerForm = reactive({
       first_name: '',
       last_name: '',
-      current_club_name: '',
+      current_club_id: '',
       country_of_birth: '',
       date_of_birth: '',
       sub_position: '',
@@ -309,7 +311,7 @@ export default {
     const errors = reactive({})
 
     const canSearch = computed(() => {
-      return searchFilters.club_name && searchFilters.player_name
+      return searchFilters.club_id && searchFilters.player_id
     })
 
     const fullNamePreview = computed(() => {
@@ -323,27 +325,30 @@ export default {
         const response = await axios.get('http://127.0.0.1:8000/api/admin/players/options/', {
           withCredentials: true
         })
-        Object.assign(options, response.data)
+        options.clubs = response.data.clubs || []
+        options.players = response.data.players || []
       } catch (error) {
+        console.error('Ошибка загрузки опций:', error)
         showMessage('Ошибка загрузки данных', 'error')
       }
     }
 
     const loadPlayersByClub = async () => {
-      if (!searchFilters.club_name) {
+      if (!searchFilters.club_id) {
         clubPlayers.value = []
-        searchFilters.player_name = ''
+        searchFilters.player_id = ''
         return
       }
 
       try {
-        const params = new URLSearchParams({ club_name: searchFilters.club_name })
+        const params = new URLSearchParams({ club_id: searchFilters.club_id })
         const response = await axios.get(`http://127.0.0.1:8000/api/admin/players/players_by_club/?${params}`, {
           withCredentials: true
         })
         clubPlayers.value = response.data
-        searchFilters.player_name = ''
+        searchFilters.player_id = ''
       } catch (error) {
+        console.error('Ошибка загрузки игроков:', error)
         showMessage('Ошибка загрузки игроков', 'error')
         clubPlayers.value = []
       }
@@ -354,7 +359,7 @@ export default {
       message.value = ''
       
       try {
-        const params = new URLSearchParams({ player_name: searchFilters.player_name })
+        const params = new URLSearchParams({ player_id: searchFilters.player_id })
         const response = await axios.get(`http://127.0.0.1:8000/api/admin/players/search/?${params}`, {
           withCredentials: true
         })
@@ -363,6 +368,7 @@ export default {
         fillPlayerForm(response.data)
         showMessage('Игрок найден', 'success')
       } catch (error) {
+        console.error('Ошибка поиска игрока:', error)
         if (error.response?.status === 404) {
           showMessage('Игрок не найден', 'error')
         } else {
@@ -396,8 +402,8 @@ export default {
         errors.last_name = 'Фамилия обязательна'
       }
       
-      if (!playerForm.current_club_name.trim()) {
-        errors.current_club_name = 'Текущий клуб обязателен'
+      if (!playerForm.current_club_id) {
+        errors.current_club_id = 'Текущий клуб обязателен'
       }
       
       if (playerForm.height_in_cm && (playerForm.height_in_cm < 150 || playerForm.height_in_cm > 220)) {
@@ -463,7 +469,7 @@ export default {
         showMessage(response.data.message, 'success')
         resetForm()
         currentPlayer.value = null
-        searchFilters.player_name = ''
+        searchFilters.player_id = ''
       } catch (error) {
         handleApiError(error, 'удаления')
       } finally {
@@ -494,8 +500,8 @@ export default {
         delete errors[key]
       })
       currentPlayer.value = null
-      searchFilters.club_name = ''
-      searchFilters.player_name = ''
+      searchFilters.club_id = ''
+      searchFilters.player_id = ''
       clubPlayers.value = []
       message.value = ''
     }
@@ -506,6 +512,7 @@ export default {
     }
 
     const handleApiError = (error, action) => {
+      console.error(`Ошибка ${action}:`, error)
       if (error.response?.data) {
         if (typeof error.response.data === 'object') {
           const errorMessages = []
@@ -725,6 +732,7 @@ export default {
   font-size: 1em;
   transition: border-color 0.3s ease;
   background: #1F1C1C;
+  color: #6c757d;
 }
 
 .form-input:focus {

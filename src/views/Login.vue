@@ -113,9 +113,6 @@ export default {
 
   try {
 
-    // await axios.get("http://127.0.0.1:8000/api/auth/csrf/", {
-    //   withCredentials: true
-    // })
 
     const loginResult = await authStore.login(
       loginForm.value.username,

@@ -5,20 +5,11 @@
     <div id="content">
       <div class="admin-dashboard">
         <div class="admin-header">
-          <div class="admin-welcome">
-            <h1>Панель администратора</h1>
-            <p>Добро пожаловать, {{ adminStore.adminUser?.username }}!</p>
-          </div>
-          <div class="admin-stats">
-            
+          <div class="admin-stats">            
           </div>
         </div>
-
-        <div class="quick-actions">
-          
+        <div class="quick-actions">         
         </div>
-
-        
       </div>
     </div>
   </div>

@@ -90,11 +90,6 @@
         <div class="match-header">
           <div class="teams-row">
             <div class="team home-team">
-              <!--
-              <div class="team-logo-placeholder">
-                <span>{{ getTeamInitials(matchData.game.home_club_name) }}</span>
-              </div>
-              -->
               <div class="team-logo-container">
                 <img 
                   :src="getTeamLogo(matchData.game.home_club_id)" 
@@ -115,11 +110,6 @@
             </div>
             
             <div class="team away-team">
-              <!--
-              <div class="team-logo-placeholder">
-                <span>{{ getTeamInitials(matchData.game.away_club_name) }}</span>
-              </div>
-              -->
               <div class="team-logo-container">
                 <img 
                   :src="getTeamLogo(matchData.game.away_club_id)" 

@@ -412,8 +412,8 @@ h1{
 }
 
 .club-badge {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: #47642A;
+  color: white;
   padding: 6px 12px;
   border-radius: 16px;
   font-size: 0.9em;
@@ -478,7 +478,7 @@ h1{
 
 .position-badge,
 .subposition-badge {
-  background: #007bff;
+  background: #2C332C;
   color: white;
   padding: 4px 12px;
   border-radius: 12px;
@@ -488,11 +488,11 @@ h1{
 }
 
 .subposition-badge {
-  background: #6c757d;
+  background: #2C332C;
 }
 
 .foot-badge {
-  background: #17a2b8;
+  background: #2C332C;
   color: white;
   padding: 4px 12px;
   border-radius: 12px;

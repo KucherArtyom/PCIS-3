@@ -48,19 +48,19 @@
           <div class="search-filters">
             <div class="filter-group">
               <label>Уход из клуба:</label>
-              <select v-model="searchFilters.from_club" class="form-select">
+              <select v-model="searchFilters.from_club_id" class="form-select">
                 <option value="">Выберите клуб</option>
-                <option v-for="club in options.from_clubs" :key="'from-' + club" :value="club">
-                  {{ club }}
+                <option v-for="club in options.clubs" :key="'from-' + club.club_id" :value="club.club_id">
+                  {{ club.name }}
                 </option>
               </select>
             </div>
             <div class="filter-group">
               <label>Переход в клуб:</label>
-              <select v-model="searchFilters.to_club" class="form-select">
+              <select v-model="searchFilters.to_club_id" class="form-select">
                 <option value="">Выберите клуб</option>
-                <option v-for="club in options.to_clubs" :key="'to-' + club" :value="club">
-                  {{ club }}
+                <option v-for="club in options.clubs" :key="'to-' + club.club_id" :value="club.club_id">
+                  {{ club.name }}
                 </option>
               </select>
             </div>
@@ -78,9 +78,9 @@
             <div class="transfers-grid">
               <div 
                 v-for="transfer in multipleTransfers" 
-                :key="transfer.id"
+                :key="transfer.transfer_id"
                 class="transfer-item"
-                :class="{ 'selected': selectedTransfer?.id === transfer.id }"
+                :class="{ 'selected': selectedTransfer?.transfer_id === transfer.transfer_id }"
                 @click="selectTransfer(transfer)"
               >
                 <div class="transfer-player">{{ transfer.player_name }}</div>
@@ -99,56 +99,53 @@
             <div class="form-grid">
               <div class="form-group">
                 <label>Игрок:</label>
-                <input
-                  v-model="transferForm.player_name"
-                  type="text"
+                <select
+                  v-model="transferForm.player_id"
                   class="form-input"
-                  :class="{ 'error': errors.player_name, 'readonly': selectedMode === 'delete' }"
-                  :readonly="selectedMode === 'delete'"
-                  placeholder="Имя и фамилия игрока"
+                  :class="{ 'error': errors.player_id, 'readonly': selectedMode === 'delete' }"
+                  :disabled="selectedMode === 'delete'"
                   required
-                  list="players-list"
                 >
-                <datalist id="players-list">
-                  <option v-for="player in options.players" :key="player" :value="player"></option>
-                </datalist>
-                <span v-if="errors.player_name" class="error-text">{{ errors.player_name }}</span>
+                  <option value="">Выберите игрока</option>
+                  <option v-for="player in options.players" :key="player.player_id" :value="player.player_id">
+                    {{ player.name }}
+                  </option>
+                </select>
+                <span v-if="errors.player_id" class="error-text">{{ errors.player_id }}</span>
               </div>
 
               <div class="form-group">
                 <label>Покинул клуб:</label>
-                <input
-                  v-model="transferForm.from_club_name"
-                  type="text"
+                <select
+                  v-model="transferForm.from_club_id"
                   class="form-input"
-                  :class="{ 'error': errors.from_club_name, 'readonly': selectedMode === 'delete' }"
-                  :readonly="selectedMode === 'delete'"
-                  placeholder="Название клуба ухода"
+                  :class="{ 'error': errors.from_club_id, 'readonly': selectedMode === 'delete' }"
+                  :disabled="selectedMode === 'delete'"
                   required
-                  list="from-clubs-list"
                 >
-                <datalist id="from-clubs-list">
-                  <option v-for="club in options.from_clubs" :key="'from-' + club" :value="club"></option>
-                </datalist>
-                <span v-if="errors.from_club_name" class="error-text">{{ errors.from_club_name }}</span>
+                  <option value="">Выберите клуб</option>
+                  <option v-for="club in options.clubs" :key="'from-' + club.club_id" :value="club.club_id">
+                    {{ club.name }}
+                  </option>
+                </select>
+                <span v-if="errors.from_club_id" class="error-text">{{ errors.from_club_id }}</span>
               </div>
 
               <div class="form-group">
                 <label>Перешёл в клуб:</label>
-                <input
-                  v-model="transferForm.to_club_name"
-                  type="text"
+                <select
+                  v-model="transferForm.to_club_id"
                   class="form-input"
-                  :class="{ 'error': errors.to_club_name, 'readonly': selectedMode === 'delete' }"
-                  :readonly="selectedMode === 'delete'"
-                  placeholder="Название клуба прихода"
+                  :class="{ 'error': errors.to_club_id, 'readonly': selectedMode === 'delete' }"
+                  :disabled="selectedMode === 'delete'"
                   required
-                  list="to-clubs-list"
                 >
-                <datalist id="to-clubs-list">
-                  <option v-for="club in options.to_clubs" :key="'to-' + club" :value="club"></option>
-                </datalist>
-                <span v-if="errors.to_club_name" class="error-text">{{ errors.to_club_name }}</span>
+                  <option value="">Выберите клуб</option>
+                  <option v-for="club in options.clubs" :key="'to-' + club.club_id" :value="club.club_id">
+                    {{ club.name }}
+                  </option>
+                </select>
+                <span v-if="errors.to_club_id" class="error-text">{{ errors.to_club_id }}</span>
               </div>
 
               <div class="form-group">
@@ -240,6 +237,10 @@ import { useAdminStore } from '@/stores/admin'
 import AdminSidebar from '@/components/AdminSidebar.vue'
 import axios from 'axios'
 
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+
 export default {
   name: 'TransfersAdmin',
   components: {
@@ -257,20 +258,19 @@ export default {
     const multipleTransfers = ref([])
     
     const options = reactive({
-      from_clubs: [],
-      to_clubs: [],
+      clubs: [],
       players: []
     })
     
     const searchFilters = reactive({
-      from_club: '',
-      to_club: ''
+      from_club_id: '',
+      to_club_id: ''
     })
     
     const transferForm = reactive({
-      player_name: '',
-      from_club_name: '',
-      to_club_name: '',
+      player_id: '',
+      from_club_id: '',
+      to_club_id: '',
       transfer_date: '',
       transfer_season: '',
       market_value_in_eur: ''
@@ -279,7 +279,7 @@ export default {
     const errors = reactive({})
 
     const canSearch = computed(() => {
-      return searchFilters.from_club || searchFilters.to_club
+      return searchFilters.from_club_id || searchFilters.to_club_id
     })
 
     const loadOptions = async () => {
@@ -287,8 +287,10 @@ export default {
         const response = await axios.get('http://127.0.0.1:8000/api/admin/transfers/options/', {
           withCredentials: true
         })
-        Object.assign(options, response.data)
+        options.clubs = response.data.clubs || []
+        options.players = response.data.players || []
       } catch (error) {
+        console.error('Ошибка загрузки опций:', error)
         showMessage('Ошибка загрузки данных', 'error')
       }
     }
@@ -302,8 +304,8 @@ export default {
       
       try {
         const params = new URLSearchParams()
-        if (searchFilters.from_club) params.append('from_club', searchFilters.from_club)
-        if (searchFilters.to_club) params.append('to_club', searchFilters.to_club)
+        if (searchFilters.from_club_id) params.append('from_club_id', searchFilters.from_club_id)
+        if (searchFilters.to_club_id) params.append('to_club_id', searchFilters.to_club_id)
 
         const response = await axios.get(`http://127.0.0.1:8000/api/admin/transfers/search_by_clubs/?${params}`, {
           withCredentials: true
@@ -318,6 +320,7 @@ export default {
           showMessage('Трансфер найден', 'success')
         }
       } catch (error) {
+        console.error('Ошибка поиска трансферов:', error)
         if (error.response?.status === 404) {
           showMessage('Трансферы не найдены', 'error')
         } else {
@@ -334,7 +337,7 @@ export default {
       selectedTransfer.value = transfer
       
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/admin/transfers/transfer_details/?id=${transfer.id}`, {
+        const response = await axios.get(`http://127.0.0.1:8000/api/admin/transfers/transfer_details/?transfer_id=${transfer.transfer_id}`, {
           withCredentials: true
         })
         
@@ -342,6 +345,7 @@ export default {
         fillTransferForm(response.data)
         showMessage('Трансфер выбран', 'success')
       } catch (error) {
+        console.error('Ошибка загрузки деталей трансфера:', error)
         showMessage('Ошибка загрузки деталей трансфера', 'error')
       }
     }
@@ -359,16 +363,16 @@ export default {
     const validateForm = () => {
       Object.keys(errors).forEach(key => delete errors[key])
       
-      if (!transferForm.player_name.trim()) {
-        errors.player_name = 'Имя игрока обязательно'
+      if (!transferForm.player_id) {
+        errors.player_id = 'Игрок обязателен'
       }
       
-      if (!transferForm.from_club_name.trim()) {
-        errors.from_club_name = 'Клуб ухода обязателен'
+      if (!transferForm.from_club_id) {
+        errors.from_club_id = 'Клуб ухода обязателен'
       }
       
-      if (!transferForm.to_club_name.trim()) {
-        errors.to_club_name = 'Клуб прихода обязателен'
+      if (!transferForm.to_club_id) {
+        errors.to_club_id = 'Клуб прихода обязателен'
       }
       
       if (!transferForm.transfer_date) {
@@ -404,7 +408,7 @@ export default {
     const updateTransfer = async () => {
       try {
         const updateData = {
-          id: currentTransfer.value.id,
+          transfer_id: currentTransfer.value.transfer_id,
           ...transferForm
         }
         
@@ -428,7 +432,7 @@ export default {
       
       try {
         const params = new URLSearchParams({
-          id: currentTransfer.value.id
+          transfer_id: currentTransfer.value.transfer_id
         })
         
         const response = await axios.delete(
@@ -441,8 +445,8 @@ export default {
         currentTransfer.value = null
         selectedTransfer.value = null
         multipleTransfers.value = []
-        searchFilters.from_club = ''
-        searchFilters.to_club = ''
+        searchFilters.from_club_id = ''
+        searchFilters.to_club_id = ''
         loadOptions()
       } catch (error) {
         handleApiError(error, 'удаления')
@@ -476,8 +480,8 @@ export default {
       currentTransfer.value = null
       selectedTransfer.value = null
       multipleTransfers.value = []
-      searchFilters.from_club = ''
-      searchFilters.to_club = ''
+      searchFilters.from_club_id = ''
+      searchFilters.to_club_id = ''
       message.value = ''
     }
 
@@ -487,6 +491,7 @@ export default {
     }
 
     const handleApiError = (error, action) => {
+      console.error(`Ошибка ${action}:`, error)
       if (error.response?.data) {
         if (typeof error.response.data === 'object') {
           const errorMessages = []
@@ -785,6 +790,7 @@ export default {
   font-size: 1em;
   transition: border-color 0.3s ease;
   background: #1F1C1C;
+  color: #6c757d;
 }
 
 .form-input:focus {
